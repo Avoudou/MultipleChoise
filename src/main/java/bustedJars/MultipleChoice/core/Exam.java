@@ -46,4 +46,8 @@ public class Exam {
     public int getGrade() {
         return grade;
     }
+
+    public Topic getTopic() {
+        return topic;
+    }
 }

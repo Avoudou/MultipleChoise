@@ -8,7 +8,8 @@ import java.util.List;
 
 public class TopicStorage {
 
-    private HashMap<Topic , List<Question>> topicDictionary= new HashMap<>();
+
+    private final HashMap<Topic , List<Question>> topicDictionary= new HashMap<>();
 
     public void  addTopic(Topic topic,List<Question> topicQuestions){
         topicDictionary.put(topic,topicQuestions);
@@ -16,4 +17,8 @@ public class TopicStorage {
     public List<Question> getTopicQuestions(Topic topic){
         return topicDictionary.get(topic);
     }
+    public HashMap<Topic, List<Question>> getTopicDictionary() {
+        return topicDictionary;
+    }
+
 }

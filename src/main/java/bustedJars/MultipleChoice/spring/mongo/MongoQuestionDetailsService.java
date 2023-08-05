@@ -19,14 +19,9 @@ public class MongoQuestionDetailsService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
-    @Bean
-    public TopicStorage createTopicStorage() {
-        TopicStorage topicStorage = new TopicStorage();
-        topicStorage.addTopic(Topic.MONG_TEST, loadQuestions());
-        return topicStorage;
-    }
 
-    private List<Question> loadQuestions() {
+
+    public List<Question> loadQuestions() {
         Query query = new Query();
         List<QuestionModel> questionModelList = mongoTemplate.find(query, QuestionModel.class);
 
