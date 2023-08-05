@@ -3,8 +3,10 @@ package bustedJars.MultipleChoice.ui.components;
 import bustedJars.MultipleChoice.core.Anwser;
 import bustedJars.MultipleChoice.core.Exam;
 import bustedJars.MultipleChoice.core.Question;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import java.text.DecimalFormat;
@@ -19,12 +21,29 @@ public class ExamComponent extends VerticalLayout {
     private Button submitAnwsersBtn;
     private List<QuestionComponent> questionComponentList;
 
+    private H1 timer;
+
     public ExamComponent(Exam exam) {
         questionComponentList = new ArrayList<>();
         this.exam = exam;
         setAlignItems(Alignment.CENTER);
         getStyle().set("border", "4px solid black");
-        add(new H1("Exam for "+exam.getTopic()));
+        HorizontalLayout horizontalLayout= new HorizontalLayout();
+        horizontalLayout.add((new H1("Exam for "+exam.getTopic())+": "));
+        timer= new H1("Time passed:");
+        horizontalLayout.add(timer);
+        add(horizontalLayout);
+        UI ui = UI.getCurrent();
+
+        ui.setPollInterval(1000);
+        ui.addPollListener(event -> {
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            Double timeInMins= Double.parseDouble(decimalFormat.format(((System.currentTimeMillis()-exam.getStartTime())/ 60000.0)));
+           timer.setText("Time passed:"+ timeInMins+ "mins");
+        });
+
+
+
         questionComponentList = exam.getQuestionList().stream()
                 .map(q -> new QuestionComponent(q))
                 .collect(Collectors.toList());
