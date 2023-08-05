@@ -3,7 +3,7 @@ package bustedJars.MultipleChoice.ui;
 import bustedJars.MultipleChoice.core.Exam;
 import bustedJars.MultipleChoice.core.Question;
 import bustedJars.MultipleChoice.core.Topic;
-import bustedJars.MultipleChoice.spring.mongo.TopicStorage;
+import bustedJars.MultipleChoice.spring.TopicStorage;
 import bustedJars.MultipleChoice.ui.components.ExamComponent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;

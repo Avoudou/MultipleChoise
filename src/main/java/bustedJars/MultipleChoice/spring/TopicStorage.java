@@ -1,4 +1,4 @@
-package bustedJars.MultipleChoice.spring.mongo;
+package bustedJars.MultipleChoice.spring;
 
 import bustedJars.MultipleChoice.core.Question;
 import bustedJars.MultipleChoice.core.Topic;
