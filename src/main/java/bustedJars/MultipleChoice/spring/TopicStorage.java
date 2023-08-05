@@ -5,19 +5,20 @@ import bustedJars.MultipleChoice.core.Topic;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class TopicStorage {
 
 
-    private final HashMap<Topic , List<Question>> topicDictionary= new HashMap<>();
+    private final HashMap<Topic , Set<Question>> topicDictionary= new HashMap<>();
 
-    public void  addTopic(Topic topic,List<Question> topicQuestions){
+    public void  addTopic(Topic topic,Set<Question> topicQuestions){
         topicDictionary.put(topic,topicQuestions);
     }
-    public List<Question> getTopicQuestions(Topic topic){
+    public Set<Question> getTopicQuestions(Topic topic){
         return topicDictionary.get(topic);
     }
-    public HashMap<Topic, List<Question>> getTopicDictionary() {
+    public HashMap<Topic, Set<Question>> getTopicDictionary() {
         return topicDictionary;
     }
 

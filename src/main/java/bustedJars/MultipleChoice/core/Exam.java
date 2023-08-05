@@ -1,28 +1,28 @@
 package bustedJars.MultipleChoice.core;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class Exam {
     private int grade;
     private Topic topic;
-    private List<Question> questionList;
+    private Set<Question> questionSet;
 
     private long startTime;
     private  long endTime;
 
 
-    public Exam(Topic topic, List<Question> questionList) {
+    public Exam(Topic topic, Set<Question> questionList) {
         this.topic = topic;
-        this.questionList = questionList;
+        this.questionSet = questionList;
         this.startTime=System.currentTimeMillis();
     }
 
     public void gradeExam(List<Question> submitedAnwsers){
-        int questionValue=100/questionList.size();
+        int questionValue=100/ questionSet.size();
         int finalGrade=0;
 
-        for (Question q: questionList) {
+        for (Question q: questionSet) {
             if(submitedAnwsers.contains(q)){
                 finalGrade= finalGrade+questionValue;
             }
@@ -31,8 +31,8 @@ public class Exam {
         endTime= System.currentTimeMillis();
     }
 
-    public List<Question> getQuestionList() {
-        return questionList;
+    public Set<Question> getQuestionSet() {
+        return questionSet;
     }
 
     public long getStartTime() {

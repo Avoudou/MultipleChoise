@@ -31,11 +31,16 @@ public class MainView extends VerticalLayout {
         createExamButton.addClickListener(e -> {
             initExamContainer();
         });
+        createExamButton.getStyle().set("background-color", "gray");
         topicComboBox = new ComboBox<>("Select a Topic");
         Set<Topic> topicsSet = topicStorage.getTopicDictionary().keySet();
         topicComboBox.setItems(topicsSet);
+        topicComboBox.getStyle().set("background-color", "gray");
         add(topicComboBox,createExamButton);
         setAlignItems(Alignment.CENTER);
+        getStyle().set("background-color", "black");
+        getStyle().set("overflow", "auto");
+        setSizeFull();
 
 
     }
@@ -50,7 +55,7 @@ public class MainView extends VerticalLayout {
         if(examComponent!=null){
             remove(examComponent);
         }
-        List<Question> questionList = topicStorage.getTopicQuestions(topicComboBox.getValue());
+        Set<Question> questionList = topicStorage.getTopicQuestions(topicComboBox.getValue());
         Exam exam = new Exam(Topic.MONG_TEST, questionList);
         examComponent = new ExamComponent(exam);
         add(examComponent);

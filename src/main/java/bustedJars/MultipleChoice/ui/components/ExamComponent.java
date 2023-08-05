@@ -10,10 +10,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ExamComponent extends VerticalLayout {
@@ -28,10 +25,14 @@ public class ExamComponent extends VerticalLayout {
         this.exam = exam;
         setAlignItems(Alignment.CENTER);
         getStyle().set("border", "4px solid black");
+        getStyle().set("background-color", "gray");
+
+
         HorizontalLayout horizontalLayout= new HorizontalLayout();
-        horizontalLayout.add((new H1("Exam for "+exam.getTopic())+": "));
+        horizontalLayout.add((new H1("Exam for "+exam.getTopic()+": ")));
         timer= new H1("Time passed:");
         horizontalLayout.add(timer);
+
         add(horizontalLayout);
         UI ui = UI.getCurrent();
 
@@ -44,9 +45,10 @@ public class ExamComponent extends VerticalLayout {
 
 
 
-        questionComponentList = exam.getQuestionList().stream()
+        questionComponentList = exam.getQuestionSet().stream()
                 .map(q -> new QuestionComponent(q))
                 .collect(Collectors.toList());
+        Collections.shuffle(questionComponentList);
         questionComponentList.stream().forEach(qc -> add(qc));
 
         submitAnwsersBtn = new Button("submit anwsers");
