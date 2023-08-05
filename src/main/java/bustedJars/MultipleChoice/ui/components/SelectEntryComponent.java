@@ -18,9 +18,13 @@ public class SelectEntryComponent  extends Button {
                 getStyle().set("background-color", "white");
             }
         });
-
+        getStyle().set("border", "1px solid gray");
     }
     public boolean isSelected() {
         return isSelected;
+    }
+
+    public String getDisplay() {
+        return display;
     }
 }

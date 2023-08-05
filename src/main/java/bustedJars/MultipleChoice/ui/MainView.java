@@ -1,41 +1,42 @@
 package bustedJars.MultipleChoice.ui;
 
+import bustedJars.MultipleChoice.core.Exam;
 import bustedJars.MultipleChoice.core.Question;
+import bustedJars.MultipleChoice.core.Topic;
 import bustedJars.MultipleChoice.spring.mongo.TopicStorage;
-import bustedJars.MultipleChoice.ui.components.QuestionComponent;
+import bustedJars.MultipleChoice.ui.components.ExamComponent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Route
 public class MainView extends VerticalLayout {
 
 
     private Button createExamButton;
-    private Button submitAnwsers;
 
-    private List<QuestionComponent> questionComponentList;
+
+//    private List<QuestionComponent> questionComponentList;
     private TopicStorage topicStorage;
+
+    private ExamComponent examComponent;
 
 
     public MainView(TopicStorage topicStorage) {
         this.topicStorage = topicStorage;
-        createExamButton = new Button("getQuestions");
-        createExamButton.addClickListener(e -> { initQuestionComponentList();
+        createExamButton = new Button("Get new Exam");
+        createExamButton.addClickListener(e -> { initQuestionContainer();
         });
         add(createExamButton);
+        setAlignItems(Alignment.CENTER);
     }
 
-    private void initQuestionComponentList() {
-    List<Question> questionList= topicStorage.getTopicQuestions("karfoto");
-        questionComponentList= new ArrayList<>();
-        questionComponentList = questionList.stream()
-                .map(q -> new QuestionComponent(q))
-                .collect(Collectors.toList());
-        questionComponentList.stream().forEach(qc->this.add(qc));
+    private void initQuestionContainer() {
+        List<Question> questionList= topicStorage.getTopicQuestions(Topic.MONG_TEST);
+        Exam exam= new Exam(Topic.MONG_TEST,questionList);
+        examComponent = new ExamComponent(exam);
+        add(examComponent);
     }
 }

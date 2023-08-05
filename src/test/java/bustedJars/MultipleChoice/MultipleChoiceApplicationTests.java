@@ -8,6 +8,7 @@ class MultipleChoiceApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }

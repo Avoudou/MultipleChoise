@@ -2,6 +2,7 @@ package bustedJars.MultipleChoice.spring.mongo;
 
 import bustedJars.MultipleChoice.core.Anwser;
 import bustedJars.MultipleChoice.core.Question;
+import bustedJars.MultipleChoice.core.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -9,8 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,7 +22,7 @@ public class MongoQuestionDetailsService {
     @Bean
     public TopicStorage createTopicStorage() {
         TopicStorage topicStorage = new TopicStorage();
-        topicStorage.addTopic("karfoto", loadQuestions());
+        topicStorage.addTopic(Topic.MONG_TEST, loadQuestions());
         return topicStorage;
     }
 
@@ -32,16 +32,16 @@ public class MongoQuestionDetailsService {
 
         List<Question>  returnList= new ArrayList<>();
         for(QuestionModel modle:questionModelList){
-            ArrayList<Anwser> anwList = new ArrayList<>();
+            Set<Anwser> anwSet = new HashSet<>();
             String[] anwArr= modle.getAnwsers().split(";");
             for (String ans: anwArr) {
                 if(ans.startsWith("*")&& ans.endsWith("*")){
-                    anwList.add(new Anwser(ans.substring(1,ans.length()-1),true));
+                    anwSet.add(new Anwser(ans.substring(1,ans.length()-1),true));
                 }else{
-                    anwList.add(new Anwser(ans,false));
+                    anwSet.add(new Anwser(ans,false));
                 }
             }
-            Question question= new Question(modle.getQuestion(),anwList);
+            Question question= new Question(modle.getQuestion(),anwSet);
             returnList.add(question);
         }
 

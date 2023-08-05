@@ -1,6 +1,6 @@
 package bustedJars.MultipleChoice.core;
 
-public class Topic {
-    private String topicName;
+public enum Topic {
+MONG_TEST
 
 }
