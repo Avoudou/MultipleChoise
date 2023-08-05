@@ -56,8 +56,11 @@ public class ExamComponent extends VerticalLayout {
             exam.gradeExam(createSubmitedAnwsersList());
             DecimalFormat decimalFormat = new DecimalFormat("#.##");
             Double timeInMins= Double.parseDouble(decimalFormat.format(((exam.getEndTime()-exam.getStartTime())/ 60000.0)));
-            add( new H1("Grade: "+ exam.getGrade()+ " in " +timeInMins+" min "));
-            questionComponentList.stream().forEach(comp->comp.setEnabled(false));
+            add( new H1("Grade: "+ exam.getGrade()+ "out of 100 in " +timeInMins+" min "));
+            questionComponentList.stream().forEach(comp->{
+                comp.setEnabled(false);
+                comp.resolveAnwsers();
+            });
             submitAnwsersBtn.setEnabled(false);
         });
         add(submitAnwsersBtn);
@@ -67,10 +70,10 @@ public class ExamComponent extends VerticalLayout {
         List<Question> returnList= new ArrayList<>();
         for (QuestionComponent comp : questionComponentList) {
             Set<Anwser> anwsers = new HashSet<>();
-            comp.getAnwserEntries().stream().forEach(ent->{
-                anwsers.add(new Anwser(ent.getDisplay(),ent.isSelected()));
+            comp.getAnswerEntries().stream().forEach(ent->{
+                anwsers.add(new Anwser(ent.getAnwser().anwser(),ent.isSelected()));
             });
-            Question question= new Question(comp.getQuestion().getText(),anwsers);
+            Question question= new Question(comp.getQuestionH1().getText(),anwsers);
             returnList.add(question);
         }
 

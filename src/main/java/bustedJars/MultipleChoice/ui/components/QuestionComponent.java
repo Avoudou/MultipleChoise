@@ -15,13 +15,16 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class QuestionComponent extends VerticalLayout {
 
-    private H1 question;
-    private List<SelectEntryComponent> anwserEntries;
+    private H1 questionH1;
+    private List<SelectEntryComponent> answerEntries;
+
+    private Question question;
 
 
     public QuestionComponent(Question question) {
-        this.question = new H1(question.question());
-        add(this.question);
+        this.question= question;
+        this.questionH1 = new H1(question.question());
+        add(this.questionH1);
         setAnwserComponents(question.anwsers());
         setAlignItems(Alignment.CENTER);
         getStyle().set("border", "2px solid black");
@@ -31,12 +34,11 @@ public class QuestionComponent extends VerticalLayout {
         List<SelectEntryComponent> list = new ArrayList<>();
         AtomicInteger ordinal = new AtomicInteger(1);
         anwserList.stream().forEach(anwser -> {
-            String value = anwser.anwser();
-            list.add(new SelectEntryComponent(value));
+            list.add(new SelectEntryComponent(anwser));
         });
         Collections.shuffle(list);
-        this.anwserEntries = list;
-        this.anwserEntries.stream().forEach(entry -> {
+        this.answerEntries = list;
+        this.answerEntries.stream().forEach(entry -> {
             HorizontalLayout horizontalLayout = new HorizontalLayout();
             horizontalLayout.add(new H2(ordinal + ") "));
             horizontalLayout.add(entry);
@@ -45,12 +47,21 @@ public class QuestionComponent extends VerticalLayout {
         });
     }
 
-    public H1 getQuestion() {
+    public H1 getQuestionH1() {
+        return questionH1;
+    }
+
+    public List<SelectEntryComponent> getAnswerEntries() {
+        return answerEntries;
+    }
+
+    public Question getQuestion() {
         return question;
     }
-
-    public List<SelectEntryComponent> getAnwserEntries() {
-        return anwserEntries;
+    public void resolveAnwsers(){
+        answerEntries.stream().forEach(ent->{
+           Boolean isCorrect= ent.resolveAnwserIsCorrect();
+//           if
+        });
     }
-
 }

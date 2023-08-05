@@ -1,31 +1,34 @@
 package bustedJars.MultipleChoice.ui.components;
 
-import com.vaadin.flow.component.HasText;
+import bustedJars.MultipleChoice.core.Anwser;
 import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.TextArea;
-import com.vaadin.flow.dom.Style;
 
 public class SelectEntryComponent extends HorizontalLayout {
-    private String display;
+
+    private final HorizontalLayout parentComponent;
     private boolean isSelected = false;
 
-    public SelectEntryComponent(String display) {
-        this.display = display;
-        Text displayText = new Text(display);
-        add(displayText);
-        setAlignItems(Alignment.CENTER);
-        getStyle().set("background-color", "white");
-        setWidth("600px");
-        setMaxWidth("600px");
+    private Anwser anwser;
+
+    public SelectEntryComponent(Anwser anwser) {
+        parentComponent = new HorizontalLayout();
+        this.anwser = anwser;
+
+        Text displayText = new Text(anwser.anwser());
+        parentComponent.add(displayText);
+        parentComponent.setAlignItems(Alignment.CENTER);
+        parentComponent.setJustifyContentMode(JustifyContentMode.CENTER);
+        parentComponent.getStyle().set("background-color", "white");
+        parentComponent.setWidth("600px");
+        parentComponent.setMaxWidth("600px");
         getStyle().set("padding", "5px");
 
-
+        add(parentComponent);
         addClickListener(e -> {
             isSelected = isSelected ? false : true;
             if (isSelected) {
-                getStyle().set("background-color", "green");
+                getStyle().set("background-color", "yellow");
             } else {
                 getStyle().set("background-color", "white");
             }
@@ -33,11 +36,32 @@ public class SelectEntryComponent extends HorizontalLayout {
         getStyle().set("border", "1px solid gray");
     }
 
+    public Boolean resolveAnwserIsCorrect() {
+        if (isSelected) {
+            if (anwser.iscorrect()) {
+                getStyle().set("background-color", "#90EE90");
+               add("Correct!");
+                return true;
+            } else {
+                getStyle().set("background-color", "red");
+                add("Wrong!!");
+                return false;
+            }
+        } else {
+            if (anwser.iscorrect()) {
+                getStyle().set("background-color", "green");
+            } else {
+                getStyle().set("background-color", "#d3d3d3");
+            }
+        }
+        return null;
+    }
+
     public boolean isSelected() {
         return isSelected;
     }
 
-    public String getDisplay() {
-        return display;
+    public Anwser getAnwser() {
+        return anwser;
     }
 }
