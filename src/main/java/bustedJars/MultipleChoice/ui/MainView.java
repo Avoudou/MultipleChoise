@@ -15,28 +15,20 @@ import com.vaadin.flow.router.Route;
 import java.util.List;
 import java.util.Set;
 
-@Route
+//@Route
 public class MainView extends VerticalLayout {
 
-    private Button createExamButton;
+
     private TopicStorage topicStorage;
     private ExamComponent examComponent;
+
     private ComboBox<Topic> topicComboBox;
 
 
+    public MainView(ComboBox topicCB) {
+        this.topicComboBox = topicCB;
 
-    public MainView(TopicStorage topicStorage) {
-        this.topicStorage = topicStorage;
-        createExamButton = new Button("Get new Exam");
-        createExamButton.addClickListener(e -> {
-            initExamContainer();
-        });
-        createExamButton.getStyle().set("background-color", "gray");
-        topicComboBox = new ComboBox<>("Select a Topic");
-        Set<Topic> topicsSet = topicStorage.getTopicDictionary().keySet();
-        topicComboBox.setItems(topicsSet);
-        topicComboBox.getStyle().set("background-color", "gray");
-        add(topicComboBox,createExamButton);
+
         setAlignItems(Alignment.CENTER);
         getStyle().set("background-color", "black");
         getStyle().set("overflow", "auto");
@@ -44,6 +36,7 @@ public class MainView extends VerticalLayout {
 
 
     }
+
 
     private void initExamContainer() {
         if(topicComboBox.getValue()==null){
@@ -60,4 +53,14 @@ public class MainView extends VerticalLayout {
         examComponent = new ExamComponent(exam);
         add(examComponent);
     }
+
+    public ExamComponent getExamComponent() {
+        return examComponent;
+    }
+
+    public void setExamComponent(ExamComponent examComponent) {
+        this.examComponent = examComponent;
+    }
+
+
 }
