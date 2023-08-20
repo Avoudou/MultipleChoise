@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Exam {
-    private int grade;
+    private Integer grade;
     private Topic topic;
     private Set<Question> questionSet;
 
@@ -43,7 +43,7 @@ public class Exam {
         return endTime;
     }
 
-    public int getGrade() {
+    public Integer getGrade() {
         return grade;
     }
 

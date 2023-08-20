@@ -37,27 +37,25 @@ import java.util.Set;
 public class AppMainView extends AppLayout {
 
 
-    private MainView mainDisplay;
-    private  VerticalLayout tabs;
+    private VerticalLayout tabs;
     private Button createExamButton;
     private ComboBox<Topic> topicComboBox;
     private TopicStorage topicStorage;
-    private Map<Tab, Component> tabMap;
+    private Map<H2, MainView> tabMap;
 
-    private int tempCounter=0;
+    private int tempCounter = 0;
 
     public AppMainView(TopicStorage topicStorage) {
-        this.tabMap= new HashMap<>();
+        this.tabMap = new HashMap<>();
         this.topicStorage = topicStorage;
+        getElement().setAttribute("theme", Lumo.DARK);
 
-        mainDisplay = new MainView(topicComboBox);
-        setContent(mainDisplay);
 
         DrawerToggle toggle = new DrawerToggle();
         H1 title = new H1("Quiz App");
         title.getStyle().set("font-size", "var(--lumo-font-size-l)")
                 .set("margin", "0");
-        VerticalLayout rightAlignedComponents = new VerticalLayout( title,toggle);
+        VerticalLayout rightAlignedComponents = new VerticalLayout(title, toggle);
         rightAlignedComponents.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         rightAlignedComponents.setMaxWidth("200px");
 
@@ -67,13 +65,13 @@ public class AppMainView extends AppLayout {
         HorizontalLayout middleAlignedComponents = new HorizontalLayout();
         middleAlignedComponents.setSizeFull();
         middleAlignedComponents.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        middleAlignedComponents.add(topicComboBox,createExamButton);
+        middleAlignedComponents.add(topicComboBox, createExamButton);
 
 
         addToNavbar(rightAlignedComponents);
         addToNavbar(middleAlignedComponents);
 
-      this.tabs= new VerticalLayout();
+        this.tabs = new VerticalLayout();
 
         addToDrawer(tabs);
 
@@ -105,27 +103,30 @@ public class AppMainView extends AppLayout {
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);
             return;
         }
-        if (mainDisplay.getExamComponent() != null) {
-            mainDisplay.remove(mainDisplay.getExamComponent());
-        }
+
         Set<Question> questionList = topicStorage.getTopicQuestions(topicComboBox.getValue());
         Exam exam = new Exam(Topic.MONG_TEST, questionList);
         ExamComponent examComponent = new ExamComponent(exam);
 
-        MainView newView= new MainView(topicComboBox);
+        MainView newView = new MainView(topicComboBox);
         newView.setExamComponent(examComponent);
         newView.add(examComponent);
 //
-        Tab newTab= new Tab("exam "+ tempCounter+  " "+  topicComboBox.getValue());
+        H2 newTab = new H2("exam " + tempCounter + " " + topicComboBox.getValue());
         tempCounter++;
+        tabMap.put(newTab, newView);
+
+        newTab.addClickListener(e -> {
+            this.remove(tabMap.get(newTab));
+            setContent(tabMap.get(newTab));
+        });
+
         tabs.add(newTab);
-        newTab.setSelected(true);
+
 //
 
 
 
-        this.remove(mainDisplay);
-        this.mainDisplay= newView;
         setContent(newView);
     }
 }

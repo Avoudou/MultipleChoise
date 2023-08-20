@@ -43,9 +43,11 @@ public class ExamComponent extends VerticalLayout {
 
         ui.setPollInterval(1000);
         ui.addPollListener(event -> {
-            DecimalFormat decimalFormat = new DecimalFormat("#.##");
-            Double timeInMins= Double.parseDouble(decimalFormat.format(((System.currentTimeMillis()-exam.getStartTime())/ 60000.0)));
-           timer.setText("Time passed:"+ timeInMins+ "mins");
+            if(exam.getGrade()==null) {
+                DecimalFormat decimalFormat = new DecimalFormat("#.##");
+                Double timeInMins = Double.parseDouble(decimalFormat.format(((System.currentTimeMillis() - exam.getStartTime()) / 60000.0)));
+                timer.setText("Time passed:" + timeInMins + "mins");
+            }
         });
 
 
