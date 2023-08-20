@@ -19,7 +19,7 @@ public class SelectEntryComponent extends HorizontalLayout {
         parentComponent.add(displayText);
         parentComponent.setAlignItems(Alignment.CENTER);
         parentComponent.setJustifyContentMode(JustifyContentMode.CENTER);
-        parentComponent.getStyle().set("background-color", "white");
+//        parentComponent.getStyle().set("background-color", "white");
         parentComponent.setWidth("600px");
         parentComponent.setMaxWidth("600px");
         getStyle().set("padding", "5px");

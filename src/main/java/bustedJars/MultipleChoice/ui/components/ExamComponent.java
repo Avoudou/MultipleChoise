@@ -8,10 +8,13 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
 import java.text.DecimalFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 public class ExamComponent extends VerticalLayout {
     private Exam exam;
@@ -24,8 +27,10 @@ public class ExamComponent extends VerticalLayout {
         questionComponentList = new ArrayList<>();
         this.exam = exam;
         setAlignItems(Alignment.CENTER);
-        getStyle().set("border", "4px solid black");
-        getStyle().set("background-color", "gray");
+//        getStyle().set("border", "4px solid black");
+//        getStyle().set("background-color", "gray");
+        getElement().setAttribute("theme", Lumo.DARK);
+
 
 
         HorizontalLayout horizontalLayout= new HorizontalLayout();

@@ -9,7 +9,9 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.ComboBoxVariant;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H2;
@@ -20,7 +22,11 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.tabs.Tab;
 import com.vaadin.flow.component.tabs.Tabs;
+import com.vaadin.flow.dom.Element;
+import com.vaadin.flow.dom.ElementFactory;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.theme.Theme;
+import com.vaadin.flow.theme.lumo.Lumo;
 
 import java.awt.*;
 import java.util.HashMap;
@@ -78,16 +84,18 @@ public class AppMainView extends AppLayout {
 //        H2 selectTopicLabel=new H2("Select Topic: ");
         topicComboBox = new ComboBox<>("Select a Topic");
         topicComboBox.setItems(topicsSet);
-        topicComboBox.getStyle().set("background-color", "#d3d3d3");
+        topicComboBox.addThemeVariants(ComboBoxVariant.LUMO_ALIGN_LEFT, ComboBoxVariant.LUMO_SMALL);
 
     }
 
     private void createExamButton() {
         createExamButton = new Button("Get new Exam");
-        createExamButton.getStyle().set("background-color", "#d3d3d3");
+//        createExamButton.getStyle().set("background-color", "#d3d3d3");
+        createExamButton.addThemeVariants(ButtonVariant.LUMO_PRIMARY, ButtonVariant.LUMO_CONTRAST);
         createExamButton.addClickListener(e -> {
             initExamContainer();
         });
+
     }
 
     private void initExamContainer() {
