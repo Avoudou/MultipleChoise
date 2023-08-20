@@ -2,7 +2,10 @@ package bustedJars.MultipleChoice.ui.components;
 
 import bustedJars.MultipleChoice.core.Anwser;
 import com.vaadin.flow.component.Text;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+
+import java.awt.*;
 
 public class SelectEntryComponent extends HorizontalLayout {
 
@@ -15,13 +18,15 @@ public class SelectEntryComponent extends HorizontalLayout {
         parentComponent = new HorizontalLayout();
         this.anwser = anwser;
 
-        Text displayText = new Text(anwser.anwser());
+        H2 displayText = new H2(anwser.anwser());
+
         parentComponent.add(displayText);
         parentComponent.setAlignItems(Alignment.CENTER);
         parentComponent.setJustifyContentMode(JustifyContentMode.CENTER);
-//        parentComponent.getStyle().set("background-color", "white");
+          parentComponent.getStyle().set("background-color", "white");
         parentComponent.setWidth("600px");
         parentComponent.setMaxWidth("600px");
+        displayText.getStyle().set("color", "black");
         getStyle().set("padding", "5px");
 
         add(parentComponent);
